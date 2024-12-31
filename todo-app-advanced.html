@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todo - Bom!</title>
+  </head>
+
+  <style>
+    body {
+      text-align: center;
+    }
+
+    #add-todo {
+      border-radius: 12px;
+      background-color: lightgreen;
+      font-size: 24px;
+    }
+    #todo-input {
+      border-radius: 4px;
+      padding: 24px;
+      font-size: 24px;
+      width: 700px;
+    }
+
+    .todo-card {
+      margin: auto;
+      margin-top: 28px;
+      width: 50vw;
+      box-shadow: -2px 1px 8px 1px grey;
+      padding: 18px;
+      border-radius: 24px;
+      background: #cacaff;
+    }
+
+    .checkbox {
+      width: 40px;
+      height: 40px;
+    }
+  </style>
+  <body dir="rtl">
+    <h1>טודו-בום</h1>
+    <h2>אפליקציית הטודו הטובה בהיסטוריה</h2>
+
+    <input
+      id="todo-input"
+      type="text"
+      placeholder="איזו משימה תרצו להוסיף היום?"
+    />
+
+    <p>הוסף תאריך דדליין</p>
+    <p><input type="date" id="todo-date" /></p>
+    <button id="add-todo">הוסף לי למשימות!</button>
+
+    <br />
+
+    <div id="todo-list"></div>
+  </body>
+
+  <script>
+    const addButton = document.getElementById("add-todo");
+    const todoList = document.getElementById("todo-list");
+
+    let counter = 1;
+
+    function check(value) {
+      const todoCard = document.getElementById(`todo-card-${value}`);
+      todoCard.style.backgroundColor = "blue";
+      todoCard.style.color = "white";
+      todoCard.style.textDecoration = "line-through";
+    }
+
+    function prepareNewCard(counterValue, inputTextValue, deadlineValue) {
+      return `<div class="todo-card" id="todo-card-${counterValue}">
+            <p>
+            <strong>תאור המשימה:</strong>
+            <span>${inputTextValue}</span>
+        </p>
+        <p><strong>דדליין למשימה:</strong><span>${deadlineValue}</span></p>
+        <input type="checkbox" class="checkbox" onClick="check(${counterValue})" />
+      </div>`;
+    }
+
+    addButton.onclick = function (event) {
+      const inputText = document.getElementById("todo-input");
+      const deadline = document.getElementById("todo-date");
+      const newTodoCard = prepareNewCard(
+        counter,
+        inputText.value,
+        deadline.value
+      );
+      todoList.innerHTML += newTodoCard;
+      counter += 1;
+    };
+  </script>
+</html>
